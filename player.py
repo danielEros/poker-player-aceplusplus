@@ -34,17 +34,13 @@ class Player:
         #if len(count) >= 2 and (card_1_rank in highest_rank or card_2_rank in highest_rank or 
         if len(count) >= 2 and count[0] in keepable_pair: 
             return game_state["current_buy_in"]
-        #if card_1_rank == card_2_rank and card_1_rank in keepable_pair:
-         #   #print "pair"
-          #  return game_state["current_buy_in"]
         current_bet = game_state["current_buy_in"] - game_state["players"][ourID]["bet"]
-        """
         if card_1_rank in high_rank or card_2_rank in high_rank: 
-            #print current_bet
             if current_bet > 0:
                 return current_bet
             else:
                 return game_state["current_buy_in"]
+        """
         else:
             if current_bet > 0:
                 stack = game_state["players"][ourID]["stack"]
@@ -55,7 +51,7 @@ class Player:
             return 0
         """
         return 0
-    
+
     def showdown(self, game_state):
         pass
 
