@@ -38,6 +38,10 @@ class Player:
             #print "high"
             return game_state["current_buy_in"] - players["in_action"]["bet"]
         else:
+            current_bet = game_state["current_buy_in"] - players["in_action"]["bet"]
+            stack = game_state["players"][ourID]["stack"]
+            if current_bet < stack/3:
+                return game_state["current_buy_in"] - players["in_action"]["bet"]
             return 0
 
     def showdown(self, game_state):
