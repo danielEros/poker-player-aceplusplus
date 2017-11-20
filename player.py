@@ -3,12 +3,7 @@ import sys
 
 class Player:
     VERSION = "Default Python folding player"
-    
-    def has_pair(card_list):
-        count = [i for i in card_list if card_list.count(i) > 1]
-        print len(count)
-        if len(count) > 1:
-            return true
+
 
     def betRequest(self, game_state):
         ourID = game_state["in_action"]
@@ -19,7 +14,7 @@ class Player:
         card_list = []
         card_list.append(card_1_rank)
         card_list.append(card_2_rank)
-        
+        current_bid = game_state["current_buy_in"]
         color_list = []
         card_1_color = game_state["players"][ourID]["hole_cards"][0]["suit"]
         card_2_color = game_state["players"][ourID]["hole_cards"][1]["suit"]
@@ -28,12 +23,12 @@ class Player:
                 card_list.append(i["suit"])
         color_set = set(color_list)
 
-        half_of_pair_in_hand = false
+        half_of_pair_in_hand = False
         if "community_cards" in game_state:
             for i in game_state["community_cards"]:
                 card_list.append(i["rank"])
                 if i["rank"] == card_1_rank or i["rank"] == card_2_rank:
-                     half_of_pair_in_hand = true
+                    half_of_pair_in_hand = True
 
 
 
@@ -41,14 +36,14 @@ class Player:
         count = [i for i in card_list if card_list.count(i) > 1]
 
         #keepable-pair
-        if len(count) >= 2 and count[0] in keepable_pair: 
-            return game_state["current_buy_in"]
+        if len(count) >= 2 and count[0] in keepable_pair:
+            return current_bid
         
         current_bet = game_state["current_buy_in"] - game_state["players"][ourID]["bet"]
         all_in = game_state["players"][ourID]["stack"]
 
         if game_state["players"][ourID]["bet"] > 100:
-            return 0        
+            return 0       
         if len(count) != 0 and (count[0] == "A" or count[0] == "K"):
             return all_in
 
@@ -57,7 +52,7 @@ class Player:
             if current_bet > 0:
                 return abs(current_bet)
             else:
-                return game_state["current_buy_in"]
+                return current_bid
         
         if len(count) != 0 and (count[0] == "A" or count[0] == "K"):
             return all_in
@@ -67,14 +62,14 @@ class Player:
 
         #color
         if len(card_list) > 2 and len(color_set) == 1:
-            return game_state["current_buy_in"]
+            return current_bid
 
         #high-rank
         if card_1_rank in high_rank or card_2_rank in high_rank: 
             if current_bet > 0:
                 return abs(current_bet)
             else:
-                return game_state["current_buy_in"]
+                return current_bid
         return 0
            
         """
