@@ -17,11 +17,11 @@ curl -d 'action=bet_request&game_state={
       "hole_cards":[                        
                                             
                 {
-                    "rank": "A",            
+                    "rank": "6",            
                     "suit": "hearts"        
                 },
                 {
-                    "rank": "A",
+                    "rank": "J",
                     "suit": "spades"
                 }
             ],
