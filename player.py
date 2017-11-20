@@ -28,9 +28,12 @@ class Player:
                 card_list.append(i["suit"])
         color_set = set(color_list)
 
+        half_of_pair_in_hand = false
         if "community_cards" in game_state:
             for i in game_state["community_cards"]:
                 card_list.append(i["rank"])
+                if i["rank"] == card_1_rank or i["rank"] == card_2_rank:
+                     half_of_pair_in_hand = true
 
         #has_pair(card_list)
         count = [i for i in card_list if card_list.count(i) > 1]
@@ -52,6 +55,9 @@ class Player:
         
         if len(count) != 0 and (count[0] == "A" or count[0] == "K"):
             return all_in
+
+        if len(card_list) > 2 and !half_of_pair_in_hand:
+            return 0
 
         #color
         if len(card_list) > 2 and len(color_set) == 1:
