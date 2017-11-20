@@ -35,6 +35,8 @@ class Player:
                 if i["rank"] == card_1_rank or i["rank"] == card_2_rank:
                      half_of_pair_in_hand = true
 
+
+
         #has_pair(card_list)
         count = [i for i in card_list if card_list.count(i) > 1]
 
@@ -44,10 +46,14 @@ class Player:
         
         current_bet = game_state["current_buy_in"] - game_state["players"][ourID]["bet"]
         all_in = game_state["players"][ourID]["stack"]
+
+        if game_state["players"][ourID]["bet"] > 100:
+            return 0        
+        if len(count) != 0 and (count[0] == "A" or count[0] == "K"):
+            return all_in
+
         #pre-flop
         if len(card_list) <= 2:
-            if game_state["players"][ourID]["bet"] > 200:
-                return 0
             if current_bet > 0:
                 return abs(current_bet)
             else:
@@ -56,7 +62,7 @@ class Player:
         if len(count) != 0 and (count[0] == "A" or count[0] == "K"):
             return all_in
 
-        if len(card_list) > 2 and !half_of_pair_in_hand:
+        if len(card_list) > 2 and not half_of_pair_in_hand:
             return 0
 
         #color
