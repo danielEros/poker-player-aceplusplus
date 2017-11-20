@@ -26,6 +26,8 @@ class Player:
             for i in game_state["community_cards"]:
                 card_list.append(i["rank"])
                 #print i["rank"]
+        color_list = []
+        
         #has_pair(card_list)
         count = [i for i in card_list if card_list.count(i) > 1]
         #print count
@@ -37,12 +39,12 @@ class Player:
           #  return game_state["current_buy_in"]
         if card_1_rank in high_rank or card_2_rank in high_rank: 
             #print "high"
-            return game_state["current_buy_in"] - game_state["players"]["in_action"]["bet"]
+            return game_state["current_buy_in"] #- game_state["players"]["in_action"]["bet"]
         else:
-            current_bet = game_state["current_buy_in"] - game_state["players"]["in_action"]["bet"] 
+            current_bet = game_state["current_buy_in"] #- game_state["players"]["in_action"]["bet"] 
             stack = game_state["players"][ourID]["stack"]
             if current_bet < stack/3:
-                return game_state["current_buy_in"] - game_state["players"]["in_action"]["bet"]
+                return game_state["current_buy_in"] #- game_state["players"]["in_action"]["bet"]
             return 0
 
     def showdown(self, game_state):
