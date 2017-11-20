@@ -50,7 +50,7 @@ class Player:
             else:
                 return game_state["current_buy_in"]
         
-        if count[0] == "A" or count[0] == "K":
+        if len(count) != 0 and (count[0] == "A" or count[0] == "K"):
             return all_in
 
         #color
