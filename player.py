@@ -46,7 +46,7 @@ class Player:
             if game_state["current_buy_in"] > 200:
                 return 0
             if current_bet > 0:
-                return current_bet
+                return abs(current_bet)
             else:
                 return game_state["current_buy_in"]
         
@@ -60,7 +60,7 @@ class Player:
         #high-rank
         if card_1_rank in high_rank or card_2_rank in high_rank: 
             if current_bet > 0:
-                return current_bet
+                return abs(current_bet)
             else:
                 return game_state["current_buy_in"]
         return 0
