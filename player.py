@@ -40,6 +40,7 @@ class Player:
             return game_state["current_buy_in"]
         
         current_bet = game_state["current_buy_in"] - game_state["players"][ourID]["bet"]
+        all_in = game_state["players"][ourID]["stack"]
         #pre-flop
         if len(card_list) <= 2:
             if game_state["current_buy_in"] > 200:
@@ -48,9 +49,12 @@ class Player:
                 return current_bet
             else:
                 return game_state["current_buy_in"]
+        
+        if count[0] == "A" or count[0] == "K":
+            return all_in
 
         #color
-        if len(card_list) > 2 and len(color_set) < 2:
+        if len(card_list) > 2 and len(color_set) == 1:
             return game_state["current_buy_in"]
 
         #high-rank
