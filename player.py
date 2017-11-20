@@ -35,17 +35,19 @@ class Player:
         if len(count) >= 2 and count[0] in keepable_pair: 
             return game_state["current_buy_in"]
         current_bet = game_state["current_buy_in"] - game_state["players"][ourID]["bet"]
+        #pre-flop
+        if len(card_list) <= 2:
+            if current_bet > 0:
+                return current_bet
+            else:
+                return game_state["current_buy_in"]
         if card_1_rank in high_rank or card_2_rank in high_rank: 
             if current_bet > 0:
                 return current_bet
             else:
                 return game_state["current_buy_in"]
-        if len(card_list) < 2:
-            if current_bet > 0:
-                return current_bet
-            else:
-                return game_state["current_buy_in"]
-            
+        return 0
+           
         """
         else:
             if current_bet > 0:
@@ -56,8 +58,7 @@ class Player:
                 return game_state["current_buy_in"]
             return 0
         """
-        return 0
-
+ 
     def showdown(self, game_state):
         pass
 
