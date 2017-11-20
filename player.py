@@ -14,33 +14,46 @@ class Player:
         ourID = game_state["in_action"]
         card_1_rank = game_state["players"][ourID]["hole_cards"][0]["rank"]
         card_2_rank = game_state["players"][ourID]["hole_cards"][1]["rank"]
-        #print card_1_rank
-        #print card_2_rank
         high_rank = ["10", "J", "Q", "K", "A"]
         keepable_pair = ["7", "8", "9", "10", "J", "Q", "K", "A"]
-        #highest_rank = ["J", "Q", "K", "A"]
         card_list = []
         card_list.append(card_1_rank)
         card_list.append(card_2_rank)
+        
+        color_list = []
+        card_1_color = game_state["players"][ourID]["hole_cards"][0]["suit"]
+        card_2_color = game_state["players"][ourID]["hole_cards"][1]["suit"]
+        if "community_cards" in game_state:
+            for i in game_state["community_cards"]:
+                card_list.append(i["suit"])
+        color_set = set(color_list)
+
         if "community_cards" in game_state:
             for i in game_state["community_cards"]:
                 card_list.append(i["rank"])
-                #print i["rank"]
-        color_list = []
-        
+
         #has_pair(card_list)
         count = [i for i in card_list if card_list.count(i) > 1]
-        #print count
-        #if len(count) >= 2 and (card_1_rank in highest_rank or card_2_rank in highest_rank or 
+
+        #keepable-pair
         if len(count) >= 2 and count[0] in keepable_pair: 
             return game_state["current_buy_in"]
+        
         current_bet = game_state["current_buy_in"] - game_state["players"][ourID]["bet"]
         #pre-flop
         if len(card_list) <= 2:
+            if game_state["current_buy_in"] > 200:
+                return 0
             if current_bet > 0:
                 return current_bet
             else:
                 return game_state["current_buy_in"]
+
+        #color
+        if len(card_list) > 2 and len(color_set) < 2:
+            return game_state["current_buy_in"]
+
+        #high-rank
         if card_1_rank in high_rank or card_2_rank in high_rank: 
             if current_bet > 0:
                 return current_bet
