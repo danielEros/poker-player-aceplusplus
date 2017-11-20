@@ -40,6 +40,12 @@ class Player:
                 return current_bet
             else:
                 return game_state["current_buy_in"]
+        if len(card_list) < 2:
+            if current_bet > 0:
+                return current_bet
+            else:
+                return game_state["current_buy_in"]
+            
         """
         else:
             if current_bet > 0:
