@@ -16,7 +16,7 @@ class Player:
         card_2_rank = game_state["players"][ourID]["hole_cards"][1]["rank"]
         #print card_1_rank
         #print card_2_rank
-        high_rank = ["8", "9", "10", "J", "Q", "K", "A"]
+        high_rank = ["10", "J", "Q", "K", "A"]
         #highest_rank = ["J", "Q", "K", "A"]
         card_list = []
         card_list.append(card_1_rank)
