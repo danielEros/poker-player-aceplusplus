@@ -43,7 +43,7 @@ class Player:
         all_in = game_state["players"][ourID]["stack"]
         #pre-flop
         if len(card_list) <= 2:
-            if game_state["current_buy_in"] > 200:
+            if game_state["players"][ourID]["bet"] > 200:
                 return 0
             if current_bet > 0:
                 return abs(current_bet)
