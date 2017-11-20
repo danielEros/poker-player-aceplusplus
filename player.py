@@ -38,6 +38,7 @@ class Player:
          #   #print "pair"
           #  return game_state["current_buy_in"]
         current_bet = game_state["current_buy_in"] - game_state["players"][ourID]["bet"]
+        """
         if card_1_rank in high_rank or card_2_rank in high_rank: 
             #print current_bet
             if current_bet > 0:
@@ -52,7 +53,9 @@ class Player:
             else:
                 return game_state["current_buy_in"]
             return 0
-
+        """
+        return 0
+    
     def showdown(self, game_state):
         pass
 
